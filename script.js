@@ -10,14 +10,14 @@ function countdown(minutes) {
     current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
     if( seconds > 0 ) {
     timeoutHandle=setTimeout(countdown, 1000);
-}
+    }
     else {
     if(mins > 1){
     setTimeout(function () { countdown(mins - 1); }, 1000);
 }
     document.getElementById("timer2").innerHTML = "TIME IS UP!"
-}
-}
+    }
+    }
     countdown();
 }
 
@@ -29,15 +29,13 @@ const answerButtonsElement = document.getElementById ('answer-buttons')
 
 let shuffledQuestions, currentQuestionIndex
 
-
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
 currentQuestionIndex++
 setNextQuestion()
-})
+    })
 
 function startGame() {
-    console.log('Started')
     startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
@@ -61,17 +59,17 @@ function showQuestion(question) {
 }
     button.addEventListener('click', selectAnswer)
     answerButtonsElement.appendChild(button)
-})
+    })
 }
+// let firstChildNode = document.getElementById("resetState");
 
 function resetState() {
     clearStatusClass(document.body)
     nextButton.classList.add('hide')
     while (answerButtonsElement.firstChild) {
     answerButtonsElement.removeChild  (answerButtonsElement.firstChild)
+    }
 }
-}
-
 
 function selectAnswer(e) {
     const selectedButton = e.target
@@ -79,29 +77,28 @@ function selectAnswer(e) {
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
     setStatusClass(button, button.dataset.correct)
-})
-    if (shuffledQuestions.length > currentQuestionIndex +1 ) {
+    })
+    if (shuffledQuestions.length > currentQuestionIndex +1) {
     nextButton.classList.remove('hide')
-} else {
-    startButton.innerText = 'Restart'
+    } else {
+    startButton.innerText = ('Restart')
     startButton.classList.remove('hide')
-}
+    }
 }
 
 function setStatusClass(element, correct) {
     clearStatusClass(element)
     if (correct) {
     element.classList.add('correct')
-} else {
+    } else {
     element.classList.add('wrong')
-}
+    }
 }
 
 function clearStatusClass(element){
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
-
 
 const questions = [
 {
@@ -110,7 +107,7 @@ const questions = [
         {text: 'OR', correct: true },
         {text: 'AND', correct: false },
 ]
-},
+    },
 
 {
     question: 'What does ~ represent in JS?',
@@ -118,19 +115,19 @@ const questions = [
         {text: 'NOT', correct: true },
         {text: 'RIGHT SHIFT', correct: false },
 ]
-},
+    },
 {
     question: 'What does === represent in JS?',
     answers:[
         {text: 'equal value and type', correct: true },
         {text: 'not equal to', correct: false },
 ]
-},
+    },
 {
     question: 'What does == represent in JS?',
     answers:[
         {text: 'equal to', correct: true },
         {text: 'equal value', correct: false },
 ]
-},
+    },
 ]
