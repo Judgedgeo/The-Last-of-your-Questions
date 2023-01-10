@@ -6,15 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>The Last of your Questions</title>
     <link rel="stylesheet" href="style.css" />
+
 </head>
 <body class="">
 
 
   <div class="timer">
-  <div id="timer2">2:00</div>
-  <button onclick="countdown(2)">GO</button>
+  <div id="timer2">1:00</div>
+</div>
 
   <div class="container">
+
+    <div id="welcome-container">
+      <p>Welcome to the Java Script Quiz</p>
+      <p>Press Start to continue</p>
+    </div>
+
     <div id="question-container" class="hide">
       <div id="question">Question</div>
       <div id="answer-buttons" class="btn-grid">
@@ -22,14 +29,20 @@
         <button class="btn">Answer 2</button>
         <button class="btn">Answer 3</button>
         <button class="btn">Answer 4</button>
+        <button class="btn">Answer 5</button>
       </div>
     </div>
+
+    <div id="resultBox-container" class="resultBox"></div>
+
     <div class="controls">
       <button id="start-btn" class="start-btn btn">Start</button>
       <button id="next-btn" class="next-btn btn hide">Next</button>
-  <!-- <div id="resetState"></div> -->
+
      </div>
-  </div>
+
+
+
 
 <script src="script.js"></script>
 
