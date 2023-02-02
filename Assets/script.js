@@ -6,6 +6,14 @@ const questionElement = document.getElementById ('question')
 const answerButtonsElement = document.getElementById ('answer-buttons')
 const resultBox = document.getElementById('resultBox')
 
+localStorage.setItem('correctAnswer');
+const cat = localStorage.getItem('correctAnswer');
+localStorage.removeItem('correctAnswer');
+localStorage.clear();
+
+let RandomQuestions, currentQuestion
+var correctAnswers = 0
+
 let shuffledQuestions, currentQuestionIndex
 
 startButton.addEventListener('click', startGame)
@@ -51,22 +59,29 @@ function resetState() {
     }
 }
 
+
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
-
+    if (correct) {
+       correctAnswers++
+    }
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct)
+      setStatusClass(button, button.dataset.correct)
     })
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+      nextButton.classList.remove('hide')
 
-    if (shuffledQuestions.length > currentQuestionIndex +1) {
-    nextButton.classList.remove('hide')
+      startButton.innerText = ('Restart')
+      startButton.classList.remove('hide')
     } else {
-    startButton.innerText = ('Restart')
-    startButton.classList.remove('hide')
+      display(element.innerText = correctAnswers.toString() + "/" + shuffledQuestions.length.toString())
+      correctAnswers = 0
+
     }
-}
+  }
+
 
 function setStatusClass(element, correct) {
     clearStatusClass(element)
@@ -76,6 +91,8 @@ function setStatusClass(element, correct) {
     element.classList.add('wrong')
     }
 }
+
+
 
 function clearStatusClass(element){
     element.classList.remove('correct')
@@ -123,6 +140,7 @@ const questions = [
 ]
 // Timer
 var timeoutHandle;
+
 function countdown(minutes) {
     var seconds = 60;
     var mins = minutes
@@ -143,4 +161,24 @@ function countdown(minutes) {
     }
     }
     countdown();
+
 };
+
+
+// function selectAnswer(e) {
+//     const selectedButton = e.target
+//     const correct = selectedButton.dataset.correct
+
+//     setStatusClass(document.body, correct)
+//     Array.from(answerButtonsElement.children).forEach(button => {
+//     setStatusClass(button, button.dataset.correct)
+//     })
+
+//     if (shuffledQuestions.length > currentQuestionIndex +1) {
+//     nextButton.classList.remove('hide')
+//     } else {
+//     startButton.innerText = ('Restart')
+
+//     startButton.classList.remove('hide')
+//     }
+// }

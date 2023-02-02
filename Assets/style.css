@@ -1,3 +1,4 @@
+*
 *,*::before, *::after{
 box-sizing: border-box;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -5,6 +6,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 .resultBox {
   text-align: center;
   color: black;
+  font-size: large;
   padding: 10px 20px;
   font-size: 1.5rem;
   font-weight: bold;
@@ -35,9 +37,9 @@ body {
 
 .container {
   font-size: 30px;
-  display: flexbox;
-  width: 800px;
-  max-width: 50%;
+  object-fit: contain;
+  max-width: fit-content;
+  max-height: fit-content;
   background-color: white;
   border-radius: 5px;
   padding: 10px;
@@ -60,6 +62,7 @@ body {
   padding: 5px 10px;
   color: white;
   outline: none;
+  font-size: large;
 }
 
 .btn:hover{
@@ -76,15 +79,17 @@ body {
 }
 
 .start-btn, .next-btn {
-  font-size: 1.25 rem;
+  font-size: 2.25 rem;
   font-size: bold;
-  padding: 10px 20px;
+  padding: 0px 10px;
+  display: flex;
 }
 
 .controls {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: large;
 }
 
 .hide {
