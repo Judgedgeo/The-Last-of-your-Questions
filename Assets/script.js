@@ -70,7 +70,7 @@ function selectAnswer(e) {
         startButton.innerText = ('Restart')
         startButton.classList.remove('hide')
     } else {
-        display(element.innerText = correctAnswers.toString() + "/" + shuffledQuestions.length.toString())
+        // display(element.innerText = correctAnswers.toString() + "/" + shuffledQuestions.length.toString())
         correctAnswers = 0
 
     }
