@@ -131,7 +131,6 @@ const questions = [
 ]
 // Timer
 var timeoutHandle;
-
 function countdown(minutes) {
     var seconds = 60;
     var mins = minutes
@@ -153,7 +152,33 @@ function countdown(minutes) {
     }
     countdown();
 
+// local storage
 };
+$("#search").on("click", function () {
+    let userInput = document.getElementById("").value;
+    let history = JSON.parse(localStorage.getItem("history")) || []
+    if (!history.includes(userInput.toLowerCase())) {
+        history.push(userInput.toLowerCase())
+        showHistory(userInput);
+        window.localStorage.setItem("history", JSON.stringify(history));
+    }
+});
+
+//displays local storage onto page
+function showHistory(city) {
+    let historyEL = document.getElementById("history")
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+    let button = document.createElement("button")
+    button.textContent = city
+    button.value = city
+    button.addEventListener("click", function (event) {
+        GetInfo(event.target.value)
+    })
+    historyEL.appendChild(button)
+}
+
+
+
 
 
 // localStorage.setItem('correctAnswer');
