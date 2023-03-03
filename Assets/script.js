@@ -4,12 +4,28 @@ const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
+const nameEL = document.getElementById('name')
+const scoreEL = document.getElementById('score')
+var questionCounter = 0
+var seconds = 60
+var counter = document.getElementById("timer2");
+var timerID;
+
+//score keeper
 const resultBox = document.getElementById('resultBox')
+const initialBox = document.getElementById('initials')
+const submitButton = document.getElementById("submit")
 
 let RandomQuestions, currentQuestion
 var correctAnswers = 0
-
 let shuffledQuestions, currentQuestionIndex
+
+submitButton.addEventListener('click', () => {
+    nameEL.textContent = " name: " + initialBox.value
+    scoreEL.textContent = " score: " + correctAnswers
+    // local Storage
+    localStorage.setItem(initialBox.value, correctAnswers)
+})
 
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
@@ -18,9 +34,12 @@ nextButton.addEventListener('click', () => {
 })
 
 function startGame() {
+    seconds = 60
     startButton.classList.add('hide')
     document.getElementById("welcome-container").style.visibility = "hidden";
-    countdown(1);
+    clearInterval(timerID)
+    timerID = setInterval(countdown, 1000)
+    counter.innerHTML = seconds
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
@@ -53,11 +72,13 @@ function resetState() {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
 }
-
+//solve correct answer
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
+console.log(correct);
     if (correct) {
+        console.log
         correctAnswers++
     }
     setStatusClass(document.body, correct)
@@ -70,7 +91,7 @@ function selectAnswer(e) {
         startButton.innerText = ('Restart')
         startButton.classList.remove('hide')
     } else {
-        // display(element.innerText = correctAnswers.toString() + "/" + shuffledQuestions.length.toString())
+
         correctAnswers = 0
 
     }
@@ -79,6 +100,7 @@ function selectAnswer(e) {
 function setStatusClass(element, correct) {
     clearStatusClass(element)
     if (correct) {
+        correctAnswers++
         element.classList.add('correct')
     } else {
         element.classList.add('wrong')
@@ -129,78 +151,14 @@ const questions = [
     },
 
 ]
-// Timer
-var timeoutHandle;
-function countdown(minutes) {
-    var seconds = 60;
-    var mins = minutes
-    function countdown() {
-        var counter = document.getElementById("timer2");
-        var current_minutes = mins - 1
-        seconds--;
-        counter.innerHTML =
-            current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
-        if (seconds > 0) {
-            timeoutHandle = setTimeout(countdown, 1000);
-        }
-        else {
-            if (mins > 1) {
-                setTimeout(function () { countdown(mins - 1); }, 1000);
-            }
-            document.getElementById("timer2").innerHTML = "TIME IS UP!"
-        }
-    }
-    countdown();
 
-// local storage
-};
-$("#search").on("click", function () {
-    let userInput = document.getElementById("").value;
-    let history = JSON.parse(localStorage.getItem("history")) || []
-    if (!history.includes(userInput.toLowerCase())) {
-        history.push(userInput.toLowerCase())
-        showHistory(userInput);
-        window.localStorage.setItem("history", JSON.stringify(history));
+function countdown() {
+    seconds--;
+    counter.innerHTML = seconds
+    if (seconds <= 0) {
+        clearInterval(timerID)
+        counter.innerHTML = "TIME IS UP!"
     }
-});
-
-//displays local storage onto page
-function showHistory(city) {
-    let historyEL = document.getElementById("history")
-    let history = JSON.parse(localStorage.getItem("history")) || [];
-    let button = document.createElement("button")
-    button.textContent = city
-    button.value = city
-    button.addEventListener("click", function (event) {
-        GetInfo(event.target.value)
-    })
-    historyEL.appendChild(button)
+    console.log(seconds);
 }
 
-
-
-
-
-// localStorage.setItem('correctAnswer');
-// const cat = localStorage.getItem('correctAnswer');
-// localStorage.removeItem('correctAnswer');
-// localStorage.clear();
-
-
-// function selectAnswer(e) {
-//     const selectedButton = e.target
-//     const correct = selectedButton.dataset.correct
-
-//     setStatusClass(document.body, correct)
-//     Array.from(answerButtonsElement.children).forEach(button => {
-//     setStatusClass(button, button.dataset.correct)
-//     })
-
-//     if (shuffledQuestions.length > currentQuestionIndex +1) {
-//     nextButton.classList.remove('hide')
-//     } else {
-//     startButton.innerText = ('Restart')
-
-//     startButton.classList.remove('hide')
-//     }
-// }
