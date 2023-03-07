@@ -9,6 +9,7 @@
   color: blueviolet;
   display: inline-flexbox;
   font-size: 100px;
+  align-self: last baseline;
 }
 
 :root {

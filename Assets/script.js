@@ -23,8 +23,10 @@ let shuffledQuestions, currentQuestionIndex
 submitButton.addEventListener('click', () => {
     nameEL.textContent = " name: " + initialBox.value
     scoreEL.textContent = " score: " + correctAnswers
-    // local Storage
-    localStorage.setItem(initialBox.value, correctAnswers)
+
+
+    localStorage.setItem("score", correctAnswers);
+    let score = localStorage.getItem("score");
 })
 
 startButton.addEventListener('click', startGame)
@@ -32,6 +34,16 @@ nextButton.addEventListener('click', () => {
     currentQuestionIndex++
     setNextQuestion()
 })
+//timer
+function countdown() {
+    seconds--;
+    counter.innerHTML = seconds
+    if (seconds <= 0) {
+        clearInterval(timerID)
+        counter.innerHTML = "TIME IS UP!"
+    }
+    console.log(seconds);
+}
 
 function startGame() {
     seconds = 60
@@ -72,11 +84,12 @@ function resetState() {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
 }
-//solve correct answer
+
+//NEED TO solve correct answer
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
-console.log(correct);
+    console.log(correct);
     if (correct) {
         console.log
         correctAnswers++
@@ -87,20 +100,14 @@ console.log(correct);
     })
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide')
-
         startButton.innerText = ('Restart')
         startButton.classList.remove('hide')
-    } else {
-
-        correctAnswers = 0
-
     }
 }
 
 function setStatusClass(element, correct) {
     clearStatusClass(element)
     if (correct) {
-        correctAnswers++
         element.classList.add('correct')
     } else {
         element.classList.add('wrong')
@@ -149,16 +156,4 @@ const questions = [
             { text: 'Equal type', correct: false },
         ]
     },
-
 ]
-
-function countdown() {
-    seconds--;
-    counter.innerHTML = seconds
-    if (seconds <= 0) {
-        clearInterval(timerID)
-        counter.innerHTML = "TIME IS UP!"
-    }
-    console.log(seconds);
-}
-
