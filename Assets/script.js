@@ -24,8 +24,11 @@ submitButton.addEventListener('click', () => {
     nameEL.textContent = " name: " + initialBox.value
     scoreEL.textContent = " score: " + correctAnswers
 
-
-    localStorage.setItem("score", correctAnswers);
+    localStorage.setItem("score", JSON.stringify([
+{
+name:initialBox.value,score: correctAnswers
+}
+    ]));
     let score = localStorage.getItem("score");
 })
 
@@ -93,6 +96,9 @@ function selectAnswer(e) {
     if (correct) {
         console.log
         correctAnswers++
+    } else {
+        seconds -= 10
+
     }
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
